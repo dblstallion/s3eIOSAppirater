@@ -62,67 +62,82 @@ NSString *templateReviewURL = @"itms-apps://ax.itunes.apple.com/WebObjects/MZSto
 @synthesize ratingAlert;
 
 // Guy - params set for Appirater
-int appId;
-int usesUntilPrompt;
-int daysUntilPrompt;
-int daysRemindLater;
-int nrSignificantEvents;
-NSString *mRateDlgTitle;
-NSString *mRateDlgText;
-NSString *mRateDlgRateButton;
-NSString *mRemindDlgTitle;
-NSString *mRemindDlgText;
+int mAppId;
+int mUsesUntilPrompt;
+int mDaysUntilPrompt;
+int mDaysRemindLater;
+int mNumSignificantEvents;
+NSString *mRateNowTitle;
+NSString *mRateNowText;
+NSString *mRateNowYesButton;
+NSString *mRateNowNoButton;
+NSString *mRemindTitle;
+NSString *mRemindText;
+NSString *mRemindYesButton;
+NSString *mRemindNoButton;
 
 RateUIViewSelector mAlertSelect;
 
 - (id) init {
     self = [super init];
     if (self != nil) {
-        appId = 0;
-        usesUntilPrompt = 0;
-        daysUntilPrompt = 0;
-        daysRemindLater = 0;
-        nrSignificantEvents = 0;
-        mRateDlgTitle = nil;
-        mRateDlgText = nil;
-        mRateDlgRateButton = nil;
-        mRemindDlgTitle = nil;
-        mRemindDlgText = nil;
+        mAppId = 0;
+        mUsesUntilPrompt = 0;
+        mDaysUntilPrompt = 0;
+        mDaysRemindLater = 0;
+        mNumSignificantEvents = 0;
+        mRateNowTitle = nil;
+        mRateNowText = nil;
+        mRateNowYesButton = nil;
+        mRateNowNoButton = nil;
+        mRemindTitle = nil;
+        mRemindText = nil;
+        mRemindYesButton = nil;
+        mRemindNoButton = nil;
     }
     return self;
 }
 
 - (void)dealloc {
-    if (mRateDlgTitle) [mRateDlgTitle release];
-    if (mRateDlgText) [mRateDlgText release];
-    if (mRateDlgRateButton) [mRateDlgRateButton release];
-    if (mRemindDlgTitle) [mRemindDlgTitle release];
-    if (mRemindDlgText) [mRemindDlgText release];
+    if (mRateNowTitle) [mRateNowTitle release];
+    if (mRateNowText) [mRateNowText release];
+    if (mRateNowYesButton) [mRateNowYesButton release];
+    if (mRateNowNoButton) [mRateNowNoButton release];
+    if (mRemindTitle) [mRemindTitle release];
+    if (mRemindText) [mRemindText release];
+    if (mRemindYesButton) [mRemindYesButton release];
+    if (mRemindNoButton) [mRemindNoButton release];
     [super dealloc];
 }
 
-- (void)setParams:(int)a_appId :(int)a_usesUntilPrompt :(int)a_daysUntilPrompt :(int)a_daysRemindLater :(int)a_nrSignificantEvents: (NSString *)dlg_title: (NSString *)dlg_text: (NSString *)dlg_rate_button 
-                 : (NSString *)remind_dlg_title : (NSString *)remind_dlg_text {
+- (void)setParams:(int)appId :(int)usesUntilPrompt :(int)daysUntilPrompt :(int)daysRemindLater :(int)numSignificantEvents :(NSString *)rateNowTitle :(NSString *)rateNowText :(NSString *)rateNowYesButton :(NSString *)rateNowNoButton :(NSString *)remindTitle :(NSString *)remindText :(NSString *)remindYesButton :(NSString *)remindNoButton {
     
     // Set params instead of using defines
-    appId = a_appId;
-    usesUntilPrompt = a_usesUntilPrompt;
-    daysUntilPrompt = a_daysUntilPrompt;
-    daysRemindLater = a_daysRemindLater;
-    nrSignificantEvents = a_nrSignificantEvents;
+    mAppId = appId;
+    mUsesUntilPrompt = usesUntilPrompt;
+    mDaysUntilPrompt = daysUntilPrompt;
+    mDaysRemindLater = daysRemindLater;
+    mNumSignificantEvents = numSignificantEvents;
     
-    mRateDlgTitle = dlg_title;
-    mRateDlgText = dlg_text;
-    mRateDlgRateButton = dlg_rate_button;
+    mRateNowTitle = rateNowTitle;
+    mRateNowText = rateNowText;
+    mRateNowYesButton = rateNowYesButton;
+    mRateNowNoButton = rateNowNoButton;
     
-    mRemindDlgText = remind_dlg_text;
-    mRemindDlgTitle = remind_dlg_title;
+    mRemindTitle = remindTitle;
+    mRemindText = remindText;
+    mRemindYesButton = remindYesButton;
+    mRemindNoButton = remindNoButton;
     
-    [mRateDlgTitle retain];
-    [mRateDlgText retain];
-    [mRateDlgRateButton retain];
-    [mRemindDlgText retain];
-    [mRemindDlgTitle retain];
+    [mRateNowTitle retain];
+    [mRateNowText retain];
+    [mRateNowYesButton retain];
+    [mRateNowNoButton retain];
+    
+    [mRemindTitle retain];
+    [mRemindText retain];
+    [mRemindYesButton retain];
+    [mRemindNoButton retain];
     
     mAlertSelect = RateShowRateWindow;
 }
@@ -161,11 +176,11 @@ RateUIViewSelector mAlertSelect;
 
 - (void)showRatingAlert {    
     mAlertSelect = RateShowRateWindow;
-	UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRateDlgTitle
-														 message:mRateDlgText
+	UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRateNowTitle
+														 message:mRateNowText
 														delegate:self
-											   cancelButtonTitle:APPIRATER_CANCEL_BUTTON
-											   otherButtonTitles:mRateDlgRateButton, nil]	 autorelease];
+											   cancelButtonTitle:mRateNowNoButton
+											   otherButtonTitles:mRateNowYesButton, nil]	 autorelease];
     self.ratingAlert = alertView;
 	[alertView show];
 }
@@ -179,18 +194,18 @@ RateUIViewSelector mAlertSelect;
 	
 	NSDate *dateOfFirstLaunch = [NSDate dateWithTimeIntervalSince1970:[userDefaults doubleForKey:kAppiraterFirstUseDate]];
 	NSTimeInterval timeSinceFirstLaunch = [[NSDate date] timeIntervalSinceDate:dateOfFirstLaunch];
-	NSTimeInterval timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
+	NSTimeInterval timeUntilRate = 60 * 60 * 24 * mDaysUntilPrompt;
 	if (timeSinceFirstLaunch < timeUntilRate)
 		return NO;
 	
 	// check if the app has been used enough
 	int useCount = [userDefaults integerForKey:kAppiraterUseCount];
-	if (useCount <= usesUntilPrompt)
+	if (useCount <= mUsesUntilPrompt)
 		return NO;
 	
 	// check if the user has done enough significant events
 	int sigEventCount = [userDefaults integerForKey:kAppiraterSignificantEventCount];
-	if (sigEventCount <= nrSignificantEvents)
+	if (sigEventCount <= mNumSignificantEvents)
 		return NO;
 	
 	// has the user previously declined to rate this version of the app?
@@ -204,7 +219,7 @@ RateUIViewSelector mAlertSelect;
 	// if the user wanted to be reminded later, has enough time passed?
 	NSDate *reminderRequestDate = [NSDate dateWithTimeIntervalSince1970:[userDefaults doubleForKey:kAppiraterReminderRequestDate]];
 	NSTimeInterval timeSinceReminderRequest = [[NSDate date] timeIntervalSinceDate:reminderRequestDate];
-	NSTimeInterval timeUntilReminder = 60 * 60 * 24 * daysRemindLater;
+	NSTimeInterval timeUntilReminder = 60 * 60 * 24 * mDaysRemindLater;
 	if (timeSinceReminderRequest < timeUntilReminder)
 		return NO;
 	
@@ -379,7 +394,7 @@ RateUIViewSelector mAlertSelect;
 	NSLog(@"APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
 #else
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *reviewURL = [templateReviewURL stringByReplacingOccurrencesOfString:@"APP_ID" withString:[NSString stringWithFormat:@"%d", appId]];
+	NSString *reviewURL = [templateReviewURL stringByReplacingOccurrencesOfString:@"APP_ID" withString:[NSString stringWithFormat:@"%d", mAppId]];
 	[userDefaults setBool:YES forKey:kAppiraterRatedCurrentVersion];
 	[userDefaults synchronize];
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:reviewURL]];
@@ -388,11 +403,11 @@ RateUIViewSelector mAlertSelect;
 
 - (void)showRemindLaterAlert {
     mAlertSelect = RateShowRemindLaterWindow;
-    UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRemindDlgTitle
-														 message:mRemindDlgText
+    UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRemindTitle
+														 message:mRemindText
 														delegate:self
-											   cancelButtonTitle:APPIRATER_CANCEL_BUTTON
-											   otherButtonTitles:APPIRATER_RATE_LATER, nil]	 autorelease];
+											   cancelButtonTitle:mRemindNoButton
+											   otherButtonTitles:mRemindYesButton, nil]	 autorelease];
     
     self.ratingAlert = alertView;
 	[alertView show];

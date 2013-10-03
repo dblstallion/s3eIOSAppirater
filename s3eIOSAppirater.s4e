@@ -7,16 +7,16 @@ functions:
 //
 // Function: s3eIOSAppiraterParams
 // 
-//     Sets appirater params
+//     Sets appirater parameters
 //
-// appId                - app id as appears in iTunes Connect
-// usesUntilPrompt      - How many times user have to use the app before prompting to rate
-// daysUntilPrompt       - How many days should pass since the user installed the app before prompting to rate
-// daysRemindLater      - How many days to wait before prompting again - in case user pressed "No Thanks"
-// nrSignificantEvents  - Number of significant events needed before prompting, set to -1 in order to ignore
+// appId                    - app id as appears in iTunes Connect
+// usesUntilPrompt          - How many times user have to use the app before prompting to rate
+// daysUntilPrompt          - How many days should pass since the user installed the app before prompting to rate
+// daysRemindLater          - How many days to wait before prompting again - in case user pressed "No Thanks"
+// numSignificantEvents     - Number of significant events needed before prompting, set to -1 in order to ignore
 //
 //
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text) void
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton) void
 
 
 //
@@ -24,10 +24,10 @@ void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, 
 //
 //     Should be called at the end of the initialization code of your app
 //
-// canPromptForRating - if false, prompting is suppressed, can be turned on again
-//                      by calling it again with true, also, supressing is cancelled
-//                      if the other methods are called with canPromptForRating=true
-//                      see below
+// canPromptForRating       - if false, prompting is suppressed, can be turned on again
+//                            by calling it again with true, also, suppressing is cancelled
+//                            if the other methods are called with canPromptForRating=true
+//                            see below
 //
 void s3eIOSAppiraterAppLaunched(bool canPromptForRating) void run_on_os_thread
 

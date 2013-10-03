@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2001-2011 Ideaworks3D Ltd.
- * All Rights Reserved.
+ * (C) 2001-2012 Marmalade. All Rights Reserved.
  *
  * This document is protected by copyright, and contains information
- * proprietary to Ideaworks Labs.
- * This file consists of source code released by Ideaworks Labs under
+ * proprietary to Marmalade.
+ *
+ * This file consists of source code released by Marmalade under
  * the terms of the accompanying End User License Agreement (EULA).
  * Please do not use this program/source code before you have read the
  * EULA and have agreed to be bound by its terms.
@@ -26,7 +26,7 @@ S3E_BEGIN_C_DECL
  */
 s3eBool s3eIOSAppiraterAvailable();
 
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text);
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton);
 
 void s3eIOSAppiraterAppLaunched(bool canPromptForRating);
 

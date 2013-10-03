@@ -42,7 +42,7 @@ void s3eIOSAppiraterTerminate();
  * Platform-specific termination, implemented on each platform
  */
 void s3eIOSAppiraterTerminate_platform();
-void s3eIOSAppiraterParams_platform(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text);
+void s3eIOSAppiraterParams_platform(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton);
 
 void s3eIOSAppiraterAppLaunched_platform(bool canPromptForRating);
 

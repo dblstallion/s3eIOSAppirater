@@ -27,19 +27,21 @@ void s3eIOSAppiraterTerminate_platform()
     [g_appirater release];
 }
 
-void s3eIOSAppiraterParams_platform(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text)
+void s3eIOSAppiraterParams_platform(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton)
 {
     // Rate window
-    NSString *nsDlgTitle = [NSString stringWithUTF8String:dlg_title];
-    NSString *nsDlgText = [NSString stringWithUTF8String:dlg_text];
-    NSString *nsDlgRate = [NSString stringWithUTF8String:dlg_rate_button];
-    // Remind later window
-    NSString *nsRemindDlgTitle = [NSString stringWithUTF8String:remind_dlg_title];
-    NSString *nsRemindDlgText = [NSString stringWithUTF8String:remind_dlg_text];
+    NSString *nsRateNowTitle = [NSString stringWithUTF8String:rateNowTitle];
+    NSString *nsRateNowText = [NSString stringWithUTF8String:rateNowText];
+    NSString *nsRateNowYesButton = [NSString stringWithUTF8String:rateNowYesButton];
+    NSString *nsRateNowNoButton = [NSString stringWithUTF8String:rateNowNoButton];
     
-    [g_appirater setParams: appId : usesUntilPrompt: daysUntilPrompt: daysRemindLater: nrSignificantEvents
-                          : nsDlgTitle : nsDlgText : nsDlgRate
-                          : nsRemindDlgTitle : nsRemindDlgText];
+    // Remind later window
+    NSString *nsRemindTitle = [NSString stringWithUTF8String:remindTitle];
+    NSString *nsRemindText = [NSString stringWithUTF8String:remindText];
+    NSString *nsRemindYesButton = [NSString stringWithUTF8String:remindYesButton];
+    NSString *nsRemindNoButton = [NSString stringWithUTF8String:remindNoButton];
+    
+    [g_appirater setParams: appId : usesUntilPrompt: daysUntilPrompt: daysRemindLater: numSignificantEvents: nsRateNowTitle: nsRateNowText: nsRateNowYesButton: nsRateNowNoButton: nsRemindTitle: nsRemindText: nsRemindYesButton: nsRemindNoButton];
 }
 
 void s3eIOSAppiraterAppLaunched_platform(bool canPromptForRating)

@@ -5,13 +5,22 @@
 
 #include "s3eExt.h"
 #include "IwDebug.h"
+#include "s3eDevice.h"
+
 
 #include "s3eIOSAppirater.h"
+
+
+// For MIPs (and WP8) platform we do not have asm code for stack switching 
+// implemented. So we make LoaderCallStart call manually to set GlobalLock
+#if defined __mips || defined S3E_ANDROID_X86 || (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP))
+#define LOADER_CALL
+#endif
 
 /**
  * Definitions for functions types passed to/from s3eExt interface
  */
-typedef       void(*s3eIOSAppiraterParams_t)(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text);
+typedef       void(*s3eIOSAppiraterParams_t)(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton);
 typedef       void(*s3eIOSAppiraterAppLaunched_t)(bool canPromptForRating);
 typedef       void(*s3eIOSAppiraterAppEnteredForeground_t)(bool canPromptForRating);
 typedef       void(*s3eIOSAppiraterUserDidSignificantEvent_t)(bool canPromptForRating);
@@ -42,7 +51,8 @@ static bool _extLoad()
         if (res == S3E_RESULT_SUCCESS)
             g_GotExt = true;
         else
-            s3eDebugAssertShow(S3E_MESSAGE_CONTINUE_STOP_IGNORE, "error loading extension: s3eIOSAppirater");
+            s3eDebugAssertShow(S3E_MESSAGE_CONTINUE_STOP_IGNORE,                 "error loading extension: s3eIOSAppirater");
+            
         g_TriedExt = true;
         g_TriedNoMsgExt = true;
     }
@@ -71,14 +81,24 @@ s3eBool s3eIOSAppiraterAvailable()
     return g_GotExt ? S3E_TRUE : S3E_FALSE;
 }
 
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int nrSignificantEvents, const char * dlg_title, const char * dlg_text, const char * dlg_rate_button, const char * remind_dlg_title, const char * remind_dlg_text)
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton)
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater[0] func: s3eIOSAppiraterParams"));
 
     if (!_extLoad())
         return;
 
-    g_Ext.m_s3eIOSAppiraterParams(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, nrSignificantEvents, dlg_title, dlg_text, dlg_rate_button, remind_dlg_title, remind_dlg_text);
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eIOSAppiraterParams(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, numSignificantEvents, rateNowTitle, rateNowText, rateNowYesButton, rateNowNoButton, remindTitle, remindText, remindYesButton, remindNoButton);
+
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
 }
 
 void s3eIOSAppiraterAppLaunched(bool canPromptForRating)
@@ -88,7 +108,17 @@ void s3eIOSAppiraterAppLaunched(bool canPromptForRating)
     if (!_extLoad())
         return;
 
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
     g_Ext.m_s3eIOSAppiraterAppLaunched(canPromptForRating);
+
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
 }
 
 void s3eIOSAppiraterAppEnteredForeground(bool canPromptForRating)
@@ -98,7 +128,17 @@ void s3eIOSAppiraterAppEnteredForeground(bool canPromptForRating)
     if (!_extLoad())
         return;
 
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
     g_Ext.m_s3eIOSAppiraterAppEnteredForeground(canPromptForRating);
+
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
 }
 
 void s3eIOSAppiraterUserDidSignificantEvent(bool canPromptForRating)
@@ -108,7 +148,17 @@ void s3eIOSAppiraterUserDidSignificantEvent(bool canPromptForRating)
     if (!_extLoad())
         return;
 
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
     g_Ext.m_s3eIOSAppiraterUserDidSignificantEvent(canPromptForRating);
+
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
 }
 
 void s3eIOSAppiraterRateApp()
@@ -118,5 +168,15 @@ void s3eIOSAppiraterRateApp()
     if (!_extLoad())
         return;
 
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
     g_Ext.m_s3eIOSAppiraterRateApp();
+
+#ifdef LOADER_CALL
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
 }
