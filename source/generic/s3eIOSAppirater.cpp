@@ -23,9 +23,9 @@ void s3eIOSAppiraterTerminate()
     s3eIOSAppiraterTerminate_platform();
 }
 
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton)
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * commonNoButton)
 {
-	s3eIOSAppiraterParams_platform(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, numSignificantEvents, rateNowTitle, rateNowText, rateNowYesButton, rateNowNoButton, remindTitle, remindText, remindYesButton, remindNoButton);
+	s3eIOSAppiraterParams_platform(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, numSignificantEvents, rateNowTitle, rateNowText, rateNowYesButton, remindTitle, remindText, remindYesButton, commonNoButton);
 }
 
 void s3eIOSAppiraterAppLaunched(bool canPromptForRating)

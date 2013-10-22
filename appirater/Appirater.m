@@ -71,11 +71,10 @@ int mNumSignificantEvents;
 NSString *mRateNowTitle;
 NSString *mRateNowText;
 NSString *mRateNowYesButton;
-NSString *mRateNowNoButton;
 NSString *mRemindTitle;
 NSString *mRemindText;
 NSString *mRemindYesButton;
-NSString *mRemindNoButton;
+NSString *mCommonNoButton;
 
 RateUIViewSelector mAlertSelect;
 
@@ -90,11 +89,10 @@ RateUIViewSelector mAlertSelect;
         mRateNowTitle = nil;
         mRateNowText = nil;
         mRateNowYesButton = nil;
-        mRateNowNoButton = nil;
         mRemindTitle = nil;
         mRemindText = nil;
         mRemindYesButton = nil;
-        mRemindNoButton = nil;
+        mCommonNoButton = nil;
     }
     return self;
 }
@@ -103,15 +101,14 @@ RateUIViewSelector mAlertSelect;
     if (mRateNowTitle) [mRateNowTitle release];
     if (mRateNowText) [mRateNowText release];
     if (mRateNowYesButton) [mRateNowYesButton release];
-    if (mRateNowNoButton) [mRateNowNoButton release];
     if (mRemindTitle) [mRemindTitle release];
     if (mRemindText) [mRemindText release];
     if (mRemindYesButton) [mRemindYesButton release];
-    if (mRemindNoButton) [mRemindNoButton release];
+    if (mCommonNoButton) [mCommonNoButton release];
     [super dealloc];
 }
 
-- (void)setParams:(int)appId :(int)usesUntilPrompt :(int)daysUntilPrompt :(int)daysRemindLater :(int)numSignificantEvents :(NSString *)rateNowTitle :(NSString *)rateNowText :(NSString *)rateNowYesButton :(NSString *)rateNowNoButton :(NSString *)remindTitle :(NSString *)remindText :(NSString *)remindYesButton :(NSString *)remindNoButton {
+- (void)setParams:(int)appId :(int)usesUntilPrompt :(int)daysUntilPrompt :(int)daysRemindLater :(int)numSignificantEvents :(NSString *)rateNowTitle :(NSString *)rateNowText :(NSString *)rateNowYesButton :(NSString *)remindTitle :(NSString *)remindText :(NSString *)remindYesButton :(NSString *)commonNoButton {
     
     // Set params instead of using defines
     mAppId = appId;
@@ -123,22 +120,22 @@ RateUIViewSelector mAlertSelect;
     mRateNowTitle = rateNowTitle;
     mRateNowText = rateNowText;
     mRateNowYesButton = rateNowYesButton;
-    mRateNowNoButton = rateNowNoButton;
     
     mRemindTitle = remindTitle;
     mRemindText = remindText;
     mRemindYesButton = remindYesButton;
-    mRemindNoButton = remindNoButton;
+    
+    mCommonNoButton = commonNoButton;
     
     [mRateNowTitle retain];
     [mRateNowText retain];
     [mRateNowYesButton retain];
-    [mRateNowNoButton retain];
     
     [mRemindTitle retain];
     [mRemindText retain];
     [mRemindYesButton retain];
-    [mRemindNoButton retain];
+    
+    [mCommonNoButton retain];
     
     mAlertSelect = RateShowRateWindow;
 }
@@ -180,7 +177,7 @@ RateUIViewSelector mAlertSelect;
 	UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRateNowTitle
 														 message:mRateNowText
 														delegate:self
-											   cancelButtonTitle:mRateNowNoButton
+											   cancelButtonTitle:mCommonNoButton
 											   otherButtonTitles:mRateNowYesButton, nil]	 autorelease];
     self.ratingAlert = alertView;
 	[alertView show];
@@ -412,7 +409,7 @@ RateUIViewSelector mAlertSelect;
     UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:mRemindTitle
 														 message:mRemindText
 														delegate:self
-											   cancelButtonTitle:mRemindNoButton
+											   cancelButtonTitle:mCommonNoButton
 											   otherButtonTitles:mRemindYesButton, nil]	 autorelease];
     
     self.ratingAlert = alertView;

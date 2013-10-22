@@ -26,7 +26,7 @@ S3E_BEGIN_C_DECL
  */
 s3eBool s3eIOSAppiraterAvailable();
 
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton);
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * commonNoButton);
 
 void s3eIOSAppiraterAppLaunched(bool canPromptForRating);
 

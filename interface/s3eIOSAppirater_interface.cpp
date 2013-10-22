@@ -20,7 +20,7 @@
 /**
  * Definitions for functions types passed to/from s3eExt interface
  */
-typedef       void(*s3eIOSAppiraterParams_t)(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton);
+typedef       void(*s3eIOSAppiraterParams_t)(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * commonNoButton);
 typedef       void(*s3eIOSAppiraterAppLaunched_t)(bool canPromptForRating);
 typedef       void(*s3eIOSAppiraterAppEnteredForeground_t)(bool canPromptForRating);
 typedef       void(*s3eIOSAppiraterUserDidSignificantEvent_t)(bool canPromptForRating);
@@ -81,7 +81,7 @@ s3eBool s3eIOSAppiraterAvailable()
     return g_GotExt ? S3E_TRUE : S3E_FALSE;
 }
 
-void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * rateNowNoButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * remindNoButton)
+void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, int daysRemindLater, int numSignificantEvents, const char * rateNowTitle, const char * rateNowText, const char * rateNowYesButton, const char * remindTitle, const char * remindText, const char * remindYesButton, const char * commonNoButton)
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater[0] func: s3eIOSAppiraterParams"));
 
@@ -92,7 +92,7 @@ void s3eIOSAppiraterParams(int appId, int usesUntilPrompt, int daysUntilPrompt, 
     s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
 #endif
 
-    g_Ext.m_s3eIOSAppiraterParams(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, numSignificantEvents, rateNowTitle, rateNowText, rateNowYesButton, rateNowNoButton, remindTitle, remindText, remindYesButton, remindNoButton);
+    g_Ext.m_s3eIOSAppiraterParams(appId, usesUntilPrompt, daysUntilPrompt, daysRemindLater, numSignificantEvents, rateNowTitle, rateNowText, rateNowYesButton, remindTitle, remindText, remindYesButton, commonNoButton);
 
 #ifdef LOADER_CALL
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);

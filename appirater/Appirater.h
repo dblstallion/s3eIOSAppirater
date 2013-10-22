@@ -74,7 +74,7 @@ typedef enum {
  Guy - Added this function to set rating prompt display conditions instead of using the above 
  commented out defines.
  */
-- (void)setParams:(int)appId :(int)usesUntilPrompt :(int)daysUntilPrompt :(int)daysRemindLater :(int)numSignificantEvents :(NSString *)rateNowTitle :(NSString *)rateNowText :(NSString *)rateNowYesButton :(NSString *)rateNowNoButton :(NSString *)remindTitle :(NSString *)remindText :(NSString *)remindYesButton :(NSString *)remindNoButton;
+- (void)setParams:(int)appId :(int)usesUntilPrompt :(int)daysUntilPrompt :(int)daysRemindLater :(int)numSignificantEvents :(NSString *)rateNowTitle :(NSString *)rateNowText :(NSString *)rateNowYesButton :(NSString *)remindTitle :(NSString *)remindText :(NSString *)remindYesButton :(NSString *)commonNoButton;
 
 /*
  DEPRECATED: While still functional, it's better to use
