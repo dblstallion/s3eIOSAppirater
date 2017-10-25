@@ -22,7 +22,8 @@ S3E_BEGIN_C_DECL
 // \endcond
 
 /**
- * Returns S3E_TRUE if the IOSAppirater extension is available.
+ * Report if the IOSAppirater extension is available.
+ * @return S3E_TRUE if the IOSAppirater extension is available. S3E_FALSE otherwise.
  */
 s3eBool s3eIOSAppiraterAvailable();
 
@@ -36,6 +37,8 @@ void s3eIOSAppiraterUserDidSignificantEvent(bool canPromptForRating);
 
 void s3eIOSAppiraterRateApp();
 
+// \cond HIDDEN_DEFINES
 S3E_END_C_DECL
+// \endcond
 
 #endif /* !S3E_EXT_IOSAPPIRATER_H */

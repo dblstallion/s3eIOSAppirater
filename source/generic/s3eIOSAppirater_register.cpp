@@ -22,36 +22,36 @@ extern void s3eIOSAppiraterTerminate();
 // On platforms that use a seperate UI/OS thread we can autowrap functions
 // here.   Note that we can't use the S3E_USE_OS_THREAD define since this
 // code is oftern build standalone, outside the main loader build.
-#if defined I3D_OS_IPHONE || defined I3D_OS_OSX || defined I3D_OS_LINUX || defined I3D_OS_WINDOWS
+#if defined I3D_OS_IPHONE || defined I3D_OS_TVOS ||defined I3D_OS_OSX || defined I3D_OS_LINUX || defined I3D_OS_WINDOWS
 
 static void s3eIOSAppiraterAppLaunched_wrap(bool canPromptForRating)
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater func on main thread: s3eIOSAppiraterAppLaunched"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eIOSAppiraterAppLaunched, 1, canPromptForRating);
 }
-
 static void s3eIOSAppiraterAppEnteredForeground_wrap(bool canPromptForRating)
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater func on main thread: s3eIOSAppiraterAppEnteredForeground"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eIOSAppiraterAppEnteredForeground, 1, canPromptForRating);
 }
-
 static void s3eIOSAppiraterUserDidSignificantEvent_wrap(bool canPromptForRating)
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater func on main thread: s3eIOSAppiraterUserDidSignificantEvent"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eIOSAppiraterUserDidSignificantEvent, 1, canPromptForRating);
 }
-
 static void s3eIOSAppiraterRateApp_wrap()
 {
     IwTrace(IOSAPPIRATER_VERBOSE, ("calling s3eIOSAppirater func on main thread: s3eIOSAppiraterRateApp"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eIOSAppiraterRateApp, 0);
 }
-
 #define s3eIOSAppiraterAppLaunched s3eIOSAppiraterAppLaunched_wrap
+
 #define s3eIOSAppiraterAppEnteredForeground s3eIOSAppiraterAppEnteredForeground_wrap
+
 #define s3eIOSAppiraterUserDidSignificantEvent s3eIOSAppiraterUserDidSignificantEvent_wrap
+
 #define s3eIOSAppiraterRateApp s3eIOSAppiraterRateApp_wrap
+
 
 #endif
 
@@ -73,7 +73,7 @@ void s3eIOSAppiraterRegisterExt()
     /*
      * Register the extension
      */
-    s3eEdkRegister("s3eIOSAppirater", funcPtrs, sizeof(funcPtrs), flags, s3eIOSAppiraterInit, s3eIOSAppiraterTerminate, 0);
+s3eEdkRegister("s3eIOSAppirater", funcPtrs, sizeof(funcPtrs), flags, s3eIOSAppiraterInit, s3eIOSAppiraterTerminate, 0);
 }
 
 #if !defined S3E_BUILD_S3ELOADER

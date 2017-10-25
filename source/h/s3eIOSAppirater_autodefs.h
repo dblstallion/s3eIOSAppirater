@@ -11,4 +11,12 @@
 #define S3E_EXT_IOSAPPIRATER_NAME "s3eIOSAppirater"
 #define S3E_EXT_IOSAPPIRATER_HASH 0xf2eb1843
 
+#ifdef S3E_EXT_REGISTER
+#ifndef S3E_EXT_REGISTER_KEY
+#define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
+#endif
+S3E_EXT_REGISTER("s3eIOSAppirater", 5)
+#else
+
+#endif /* S3E_EXT_REGISTER */
 #endif /* !S3EIOSAPPIRATER_AUTODEFS_H */
